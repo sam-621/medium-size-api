@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from '../user/user.module';
-import { AuthService } from './auth.service';
+import { CommonAuth } from './services/commonAuth.service';
 import { ConfigModule } from '/@/common/config/config.module';
 
 @Module({
@@ -16,7 +16,7 @@ import { ConfigModule } from '/@/common/config/config.module';
     }),
     UserModule,
   ],
-  providers: [AuthService],
-  exports: [AuthService],
+  providers: [CommonAuth],
+  exports: [CommonAuth],
 })
 export class AuthModule {}

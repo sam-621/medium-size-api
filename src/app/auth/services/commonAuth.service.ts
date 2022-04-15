@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserRepository } from '../user/repository/user.repository';
+import { UserRepository } from '../../user/repository/user.repository';
 import bcrypt from 'bcrypt';
 import { SALT } from '/@/common/config/constants.config';
-import { TPayload } from './auth.interfaces';
+import { TPayload } from '../interfaces/auth.interfaces';
 
 @Injectable()
-export class AuthService {
+export class CommonAuth {
   constructor(private userRepository: UserRepository, private jwtService: JwtService) {}
 
   async hashPassword(password: string) {
