@@ -1,4 +1,4 @@
-import { THashMap } from '../interfaces/utils.interface';
+import { THashMap } from '/@/interfaces/utils.interface';
 
 export const configValues = () => ({
   PORT: Number(process.env.PORT),

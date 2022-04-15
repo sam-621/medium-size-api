@@ -31,7 +31,8 @@
       "/@/libs/*": ["common/libs/*"],
       "/@/mailer/*": ["common/mailer/*"],
       "/@/middlewares/*": ["common/middlewares/*"],
-      "/@/app/*": ["app/*"]
+      "/@/app/*": ["app/*"],
+      "/@/interfaces/*": ["common/interfaces/*"]
     }
   },
   "exclude": ["node_modules", "dist"]
