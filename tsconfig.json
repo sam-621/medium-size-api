@@ -9,13 +9,30 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "noFallthroughCasesInSwitch": false,
+    "baseUrl": "./src",
+    "paths": {
+      "/@/common/*": ["common/*"],
+      "/@/config/*": ["common/config/*"],
+      "/@/constants/*": ["common/constants/*"],
+      "/@/database/*": ["common/database/*"],
+      "/@/decorators/*": ["common/decorators/*"],
+      "/@/entities/*": ["common/entities/*"],
+      "/@/enums/*": ["common/enums/*"],
+      "/@/filters/*": ["common/filters/*"],
+      "/@/graphql/*": ["common/graphql/*"],
+      "/@/guards/*": ["common/guards/*"],
+      "/@/libs/*": ["common/libs/*"],
+      "/@/mailer/*": ["common/mailer/*"],
+      "/@/middlewares/*": ["common/middlewares/*"],
+      "/@/app/*": ["app/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
 }
