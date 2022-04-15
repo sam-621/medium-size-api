@@ -8,3 +8,6 @@ export interface IUser {
   bio: string;
   profilePic: string;
 }
+
+export type TUserRegister = Pick<IUser, 'username' | 'email' | 'password'>;
+export type TUserLogin = Pick<IUser, 'email' | 'password'>;
