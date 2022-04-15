@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from '../../user/repository/user.repository';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { SALT } from '/@/common/config/constants.config';
 import { TPayload } from '../interfaces/auth.interfaces';
 

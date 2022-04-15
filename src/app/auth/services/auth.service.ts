@@ -1,10 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserRepository } from '../../user/repository/user.repository';
 import { RegisterDto } from '../dtos/register.dto';
-import { AuthResponse } from '../dtos/response.dto';
 import { TPayload } from '../interfaces/auth.interfaces';
 import { CommonAuthService } from './commonAuth.service';
-import { OkHttpResponse } from '/@/common/utils/OkHttpResponse.util';
 
 const DUPLICATED_EMAIL_ERROR = 'A user with that email already exists';
 
@@ -15,7 +13,7 @@ export class AuthService {
     private userRepository: UserRepository,
   ) {}
 
-  async register(user: RegisterDto): Promise<AuthResponse> {
+  async register(user: RegisterDto): Promise<string> {
     const userAlreadyExists = await this.commonAuthService.emailAlreadyExists(user.email);
 
     if (userAlreadyExists) {
@@ -35,6 +33,6 @@ export class AuthService {
 
     const token = this.commonAuthService.createJWT(payload);
 
-    return new OkHttpResponse<string>(token);
+    return token;
   }
 }
