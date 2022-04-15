@@ -9,5 +9,5 @@ export interface IUser {
   profilePic: string;
 }
 
-export type TUserRegister = Pick<IUser, 'username' | 'email' | 'password'>;
-export type TUserLogin = Pick<IUser, 'email' | 'password'>;
+export type TRegisterUser = Pick<IUser, 'username' | 'email' | 'password'>;
+export type TLoginUser = Pick<IUser, 'email' | 'password'>;
