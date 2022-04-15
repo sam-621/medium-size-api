@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './controllers/auth.controller';
-import { CommonAuth } from './services/commonAuth.service';
+import { CommonAuthService } from './services/commonAuth.service';
 import { ConfigModule } from '/@/common/config/config.module';
 
 @Module({
@@ -18,7 +18,7 @@ import { ConfigModule } from '/@/common/config/config.module';
     UserModule,
   ],
   controllers: [AuthController],
-  providers: [CommonAuth],
-  exports: [CommonAuth],
+  providers: [CommonAuthService],
+  exports: [CommonAuthService],
 })
 export class AuthModule {}

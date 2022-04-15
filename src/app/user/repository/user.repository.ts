@@ -2,18 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { TUserDocument, User } from '../schema/user.schema';
 import { Model, QueryOptions } from 'mongoose';
-import { TMongoId } from '/@/common/interfaces/utils.interface';
-import { TRegisterUser } from '../interfaces/user.interface';
+import { RegisterDto } from '../../auth/dtos/register.dto';
+import { Types } from 'mongoose';
 
 @Injectable()
 export class UserRepository {
   constructor(@InjectModel(User.name) private userModel: Model<TUserDocument>) {}
 
-  findOneById(id: TMongoId, fields: string[] = [], options: QueryOptions) {
+  findOneById(id: Types.ObjectId, fields: string[] = [], options: QueryOptions) {
     return this.userModel.findById(id, fields, options);
   }
 
-  async saveUser(user: TRegisterUser) {
+  async saveUser(user: RegisterDto) {
     const newUser = new this.userModel(user);
     await newUser.save();
     return newUser;

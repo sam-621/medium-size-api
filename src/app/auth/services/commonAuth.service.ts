@@ -6,7 +6,7 @@ import { SALT } from '/@/common/config/constants.config';
 import { TPayload } from '../interfaces/auth.interfaces';
 
 @Injectable()
-export class CommonAuth {
+export class CommonAuthService {
   constructor(private userRepository: UserRepository, private jwtService: JwtService) {}
 
   async hashPassword(password: string) {

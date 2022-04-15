@@ -1,5 +1,5 @@
-import { TMongoId } from '/@/common/interfaces/utils.interface';
+import { Types } from 'mongoose';
 
 export type TPayload = {
-  id: TMongoId;
+  id: Types.ObjectId;
 };

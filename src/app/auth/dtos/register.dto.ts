@@ -1,8 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
-import { TRegisterUser } from '../../user/interfaces/user.interface';
 
-export class RegisterDto implements TRegisterUser {
+export class RegisterDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
