@@ -1,5 +1,12 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+import { LoginDto } from '../dtos/login.dto';
 import { RegisterDto } from '../dtos/register.dto';
 import { AuthResponse } from '../dtos/response.dto';
 import { AuthService } from '../services/auth.service';
@@ -19,6 +26,19 @@ export class AuthController {
   @ApiCreatedResponse({ description: 'user created', type: AuthResponse })
   async register(@Body() user: RegisterDto) {
     const token = await this.authService.register(user);
+
+    return new AuthResponse(token);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('login')
+  @ApiUnauthorizedResponse({ description: 'Wrong credentials', type: ErrorHttpResponse })
+  @ApiOkResponse({
+    description: 'user logged successfully',
+    type: AuthResponse,
+  })
+  async login(@Body() user: LoginDto) {
+    const token = await this.authService.login(user);
 
     return new AuthResponse(token);
   }
