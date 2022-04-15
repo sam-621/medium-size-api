@@ -1,5 +1,6 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserRepository } from '../../user/repository/user.repository';
+import { LoginDto } from '../dtos/login.dto';
 import { RegisterDto } from '../dtos/register.dto';
 import { TPayload } from '../interfaces/auth.interfaces';
 import { CommonAuthService } from './commonAuth.service';
@@ -29,6 +30,27 @@ export class AuthService {
 
     const payload: TPayload = {
       id: newUser._id,
+    };
+
+    const token = this.commonAuthService.createJWT(payload);
+
+    return token;
+  }
+
+  async login({ email, password }: LoginDto): Promise<string> {
+    const userByEmail = await this.userRepository.findOneByEmail(email, ['password']);
+
+    if (!userByEmail) throw new UnauthorizedException('Wrong credentials');
+
+    const passwordsMatch = await this.commonAuthService.passwordsMatch(
+      password,
+      userByEmail.password,
+    );
+
+    if (!passwordsMatch) throw new UnauthorizedException('Wrong credentials');
+
+    const payload: TPayload = {
+      id: userByEmail._id,
     };
 
     const token = this.commonAuthService.createJWT(payload);
