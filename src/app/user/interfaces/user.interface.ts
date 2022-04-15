@@ -1,7 +1,7 @@
-import { ObjectId } from 'mongoose';
+import { TMongoId } from '/@/common/interfaces/utils.interface';
 
 export interface IUser {
-  id: ObjectId;
+  id: TMongoId;
   username: string;
   email: string;
   password: string;
