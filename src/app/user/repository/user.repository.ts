@@ -22,4 +22,8 @@ export class UserRepository {
   findOneByEmail(email: string, fields?: string[]) {
     return this.userModel.findOne({ email: email }, fields);
   }
+
+  update(id: Types.ObjectId, user: TUserDocument) {
+    return this.userModel.findByIdAndUpdate(id, user);
+  }
 }
