@@ -12,7 +12,7 @@ export class UserAuthService {
   constructor(private authService: AuthService, private userRepository: UserRepository) {}
 
   async register(user: RegisterDto): Promise<string> {
-    const userAlreadyExists = await this.authService.emailAlreadyExists(user.email);
+    const userAlreadyExists = await this.emailAlreadyExists(user.email);
 
     if (userAlreadyExists) {
       throw new BadRequestException(DUPLICATED_EMAIL_ERROR);
@@ -50,5 +50,11 @@ export class UserAuthService {
     const token = this.authService.createJWT(payload);
 
     return token;
+  }
+
+  async emailAlreadyExists(email: string): Promise<boolean> {
+    const user = await this.userRepository.findOneByEmail(email);
+
+    return Boolean(user);
   }
 }

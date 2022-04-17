@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { TUserDocument, User } from '../schema/user.schema';
 import { Model, QueryOptions } from 'mongoose';
-import { RegisterDto } from '../../auth/dtos/register.dto';
 import { Types } from 'mongoose';
+import { RegisterDto } from '../dtos/register.dto';
 
 @Injectable()
 export class UserRepository {
