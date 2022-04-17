@@ -10,7 +10,7 @@ import { LoginDto } from '../dtos/login.dto';
 import { RegisterDto } from '../dtos/register.dto';
 import { UserAuthResponse } from '../dtos/response.dto';
 import { UserAuthService } from '../services/userAuth.service';
-import { ErrorHttpResponse } from '/@/interfaces/responses.interface';
+import { ErrorHttpResponse } from '../../../common/interfaces/network.interface';
 
 @ApiTags('User auth')
 @Controller('user/auth')
