@@ -9,7 +9,7 @@ import { RegisterDto } from '../dtos/register.dto';
 export class UserRepository {
   constructor(@InjectModel(User.name) private userModel: Model<TUserDocument>) {}
 
-  findOneById(id: Types.ObjectId, fields: string[] = [], options: QueryOptions) {
+  findOneById(id: Types.ObjectId, fields: string[] = [], options?: QueryOptions) {
     return this.userModel.findById(id, fields, options);
   }
 
