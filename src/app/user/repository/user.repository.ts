@@ -4,6 +4,7 @@ import { TUserDocument, User } from '../schema/user.schema';
 import { Model, QueryOptions } from 'mongoose';
 import { Types } from 'mongoose';
 import { RegisterDto } from '../dtos/register.dto';
+import { UpdateUserDto } from '../dtos/update.dto';
 
 @Injectable()
 export class UserRepository {
@@ -23,7 +24,7 @@ export class UserRepository {
     return this.userModel.findOne({ email: email }, fields);
   }
 
-  update(id: Types.ObjectId, user: TUserDocument) {
-    return this.userModel.findByIdAndUpdate(id, user);
+  update(id: Types.ObjectId, user: UpdateUserDto) {
+    return this.userModel.findByIdAndUpdate(id, user, { new: true });
   }
 }
