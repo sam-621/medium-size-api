@@ -1,21 +1,18 @@
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserRepository } from '../../user/repository/user.repository';
 import { LoginDto } from '../dtos/login.dto';
 import { RegisterDto } from '../dtos/register.dto';
-import { TPayload } from '../interfaces/auth.interfaces';
-import { CommonAuthService } from './commonAuth.service';
+import { UserRepository } from '../repository/user.repository';
+import { TPayload } from '/@/auth/interfaces/auth.interfaces';
+import { AuthService } from '/@/auth/services/auth.service';
 
 const DUPLICATED_EMAIL_ERROR = 'A user with that email already exists';
 
 @Injectable()
-export class AuthService {
-  constructor(
-    private commonAuthService: CommonAuthService,
-    private userRepository: UserRepository,
-  ) {}
+export class UserAuthService {
+  constructor(private authService: AuthService, private userRepository: UserRepository) {}
 
   async register(user: RegisterDto): Promise<string> {
-    const userAlreadyExists = await this.commonAuthService.emailAlreadyExists(user.email);
+    const userAlreadyExists = await this.authService.emailAlreadyExists(user.email);
 
     if (userAlreadyExists) {
       throw new BadRequestException(DUPLICATED_EMAIL_ERROR);
@@ -23,7 +20,7 @@ export class AuthService {
 
     const userToSave: RegisterDto = {
       ...user,
-      password: await this.commonAuthService.hashPassword(user.password),
+      password: await this.authService.hashPassword(user.password),
     };
 
     const newUser = await this.userRepository.saveUser(userToSave);
@@ -32,7 +29,7 @@ export class AuthService {
       id: newUser._id,
     };
 
-    const token = this.commonAuthService.createJWT(payload);
+    const token = this.authService.createJWT(payload);
 
     return token;
   }
@@ -42,10 +39,7 @@ export class AuthService {
 
     if (!userByEmail) throw new UnauthorizedException('Wrong credentials');
 
-    const passwordsMatch = await this.commonAuthService.passwordsMatch(
-      password,
-      userByEmail.password,
-    );
+    const passwordsMatch = await this.authService.passwordsMatch(password, userByEmail.password);
 
     if (!passwordsMatch) throw new UnauthorizedException('Wrong credentials');
 
@@ -53,7 +47,7 @@ export class AuthService {
       id: userByEmail._id,
     };
 
-    const token = this.commonAuthService.createJWT(payload);
+    const token = this.authService.createJWT(payload);
 
     return token;
   }
