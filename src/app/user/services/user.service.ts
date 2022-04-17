@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserRepository } from '../repository/user.repository';
 import { Types } from 'mongoose';
 import { TUserDocument } from '../schema/user.schema';
@@ -20,6 +20,13 @@ export class UserService {
   }
 
   async updateProfile(id: Types.ObjectId, user: UpdateUserDto) {
+    const realUser = await this.userRepository.findOneById(id);
+    const userWithThatEmail = await this.userRepository.findOneByEmail(user.email);
+
+    if (Boolean(userWithThatEmail) && realUser.email !== userWithThatEmail?.email) {
+      throw new BadRequestException('User with that email already exists');
+    }
+
     const userUpdated = await this.userRepository.update(id, user);
 
     return userUpdated;
