@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IUser } from '../interfaces/user.interface';
+import { GetUserProfileDto } from './getProfile.dto';
 
 export class UserAuthResponse {
   @ApiProperty()
@@ -10,12 +10,22 @@ export class UserAuthResponse {
   }
 }
 
-type TUserProfile = Omit<IUser, 'password'>;
 export class UserProfileResponse {
   @ApiProperty()
-  data: TUserProfile;
+  data: GetUserProfileDto;
 
-  constructor(data: TUserProfile) {
+  constructor(data: GetUserProfileDto) {
     this.data = data;
   }
+}
+
+export class UnauthorizedException {
+  @ApiProperty()
+  statusCode: number;
+
+  @ApiProperty()
+  message: string;
+
+  @ApiProperty()
+  error: string;
 }
