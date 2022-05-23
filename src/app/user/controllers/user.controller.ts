@@ -17,10 +17,10 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @UseGuards(AuthGuard)
-  @Get('info')
+  @Get('current')
   @ApiUnauthorizedResponse({ description: 'No token provided', type: ErrorHttpResponse })
   @ApiOkResponse({ description: 'User details', type: UserProfileResponse })
-  async getUser(@Req() req: IUserRequest): Promise<UserProfileResponse> {
+  async getCurrentUser(@Req() req: IUserRequest): Promise<UserProfileResponse> {
     const user = await this.userService.getProfile(req.user.id);
 
     return new UserProfileResponse(user);
