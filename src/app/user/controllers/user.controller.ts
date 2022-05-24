@@ -20,8 +20,8 @@ export class UserController {
   @Get('current')
   @ApiUnauthorizedResponse({ description: 'No token provided', type: ErrorHttpResponse })
   @ApiOkResponse({ description: 'User details', type: UserProfileResponse })
-  async getCurrentUser(@Req() req: IUserRequest): Promise<UserProfileResponse> {
-    const user = await this.userService.getProfile(req.user.id);
+  async getCurrentProfile(@Req() req: IUserRequest): Promise<UserProfileResponse> {
+    const user = await this.userService.getCurrentProfile(req.user.id);
 
     return new UserProfileResponse(user);
   }
@@ -38,7 +38,7 @@ export class UserController {
   @ApiUnauthorizedResponse({ description: 'No token provided', type: ErrorHttpResponse })
   @ApiBadRequestResponse({ description: 'That email is already taken', type: ErrorHttpResponse })
   @ApiOkResponse({ description: 'User updated', type: UserProfileResponse })
-  async updateUser(
+  async updateProfile(
     @Req() req: IUserRequest,
     @Body() user: UpdateUserDto,
   ): Promise<UserProfileResponse> {

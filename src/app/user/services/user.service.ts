@@ -8,7 +8,7 @@ import { UpdateUserDto } from '../dtos/update.dto';
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
-  async getProfile(id: Types.ObjectId): Promise<TUserDocument> {
+  async getCurrentProfile(id: Types.ObjectId): Promise<TUserDocument> {
     const user = await this.userRepository.findOneById(id, [
       'username',
       'email',
