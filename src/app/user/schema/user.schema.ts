@@ -24,6 +24,12 @@ export class User implements IUser {
 
   @Prop({ required: false, default: '' })
   profilePic: string;
+
+  @Prop({ required: false, default: [] })
+  followers: Types.ObjectId[];
+
+  @Prop({ required: false, default: [] })
+  following: Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
