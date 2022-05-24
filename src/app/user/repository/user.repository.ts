@@ -27,4 +27,14 @@ export class UserRepository {
   update(id: Types.ObjectId, user: UpdateUserDto) {
     return this.userModel.findByIdAndUpdate(id, user, { new: true });
   }
+
+  async addFollower(id: Types.ObjectId, followerId: Types.ObjectId) {
+    const user = await this.userModel.findById(id);
+
+    const newUser = {
+      ...user,
+      followers: [...user.followers, followerId],
+    };
+    return this.userModel.findByIdAndUpdate(id, newUser, { new: true });
+  }
 }
