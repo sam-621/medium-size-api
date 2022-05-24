@@ -5,6 +5,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { GetProfileByIdParam } from '../dtos/getProfile.dto';
 import { UserProfileResponse } from '../dtos/response.dto';
 import { UpdateUserDto } from '../dtos/update.dto';
 import { UserService } from '../services/user.service';
@@ -21,16 +22,16 @@ export class UserController {
   @ApiUnauthorizedResponse({ description: 'No token provided', type: ErrorHttpResponse })
   @ApiOkResponse({ description: 'User details', type: UserProfileResponse })
   async getCurrentProfile(@Req() req: IUserRequest): Promise<UserProfileResponse> {
-    const user = await this.userService.getCurrentProfile(req.user.id);
+    const user = await this.userService.getProfileById(req.user.id);
 
     return new UserProfileResponse(user);
   }
 
   @Get(':id')
-  async getUser(@Param() params) {
-    console.log(params);
+  async getUser(@Param() params: GetProfileByIdParam) {
+    const user = await this.userService.getProfileById(params.id);
 
-    return 'cool';
+    return new UserProfileResponse(user);
   }
 
   @UseGuards(AuthGuard)

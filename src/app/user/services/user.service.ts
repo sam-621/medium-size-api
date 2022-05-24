@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { UserRepository } from '../repository/user.repository';
 import { Types } from 'mongoose';
 import { TUserDocument } from '../schema/user.schema';
@@ -8,15 +8,19 @@ import { UpdateUserDto } from '../dtos/update.dto';
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
-  async getCurrentProfile(id: Types.ObjectId): Promise<TUserDocument> {
-    const user = await this.userRepository.findOneById(id, [
-      'username',
-      'email',
-      'bio',
-      'profilePic',
-    ]);
+  async getProfileById(id: Types.ObjectId): Promise<TUserDocument> {
+    try {
+      const user = await this.userRepository.findOneById(id, [
+        'username',
+        'email',
+        'bio',
+        'profilePic',
+      ]);
 
-    return user;
+      return user;
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
   }
 
   async updateProfile(id: Types.ObjectId, user: UpdateUserDto) {

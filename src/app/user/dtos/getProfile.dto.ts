@@ -17,3 +17,7 @@ export class GetUserProfileDto {
   @ApiProperty()
   profilePic: string;
 }
+
+export class GetProfileByIdParam {
+  id: Types.ObjectId;
+}
