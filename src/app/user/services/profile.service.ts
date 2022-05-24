@@ -5,7 +5,7 @@ import { TUserDocument } from '../schema/user.schema';
 import { UpdateUserDto } from '../dtos/update.dto';
 
 @Injectable()
-export class UserService {
+export class ProfileService {
   constructor(private userRepository: UserRepository) {}
 
   async getProfileById(id: Types.ObjectId): Promise<TUserDocument> {

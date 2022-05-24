@@ -8,28 +8,28 @@ import {
 import { GetProfileByIdParam } from '../dtos/getProfile.dto';
 import { UserProfileResponse } from '../dtos/response.dto';
 import { UpdateUserDto } from '../dtos/update.dto';
-import { UserService } from '../services/user.service';
+import { ProfileService } from '../services/profile.service';
 import { AuthGuard } from '/@/common/guards/auth.guard';
 import { ErrorHttpResponse, IUserRequest } from '/@/common/interfaces/network.interface';
 
 @ApiTags('User profile')
 @Controller('user')
-export class UserController {
-  constructor(private userService: UserService) {}
+export class ProfileController {
+  constructor(private profileService: ProfileService) {}
 
   @UseGuards(AuthGuard)
   @Get('current')
   @ApiUnauthorizedResponse({ description: 'No token provided', type: ErrorHttpResponse })
   @ApiOkResponse({ description: 'User details', type: UserProfileResponse })
   async getCurrentProfile(@Req() req: IUserRequest): Promise<UserProfileResponse> {
-    const user = await this.userService.getProfileById(req.user.id);
+    const user = await this.profileService.getProfileById(req.user.id);
 
     return new UserProfileResponse(user);
   }
 
   @Get(':id')
-  async getUser(@Param() params: GetProfileByIdParam) {
-    const user = await this.userService.getProfileById(params.id);
+  async getProfileById(@Param() params: GetProfileByIdParam) {
+    const user = await this.profileService.getProfileById(params.id);
 
     return new UserProfileResponse(user);
   }
@@ -43,7 +43,7 @@ export class UserController {
     @Req() req: IUserRequest,
     @Body() user: UpdateUserDto,
   ): Promise<UserProfileResponse> {
-    const userUpdated = await this.userService.updateProfile(req.user.id, user);
+    const userUpdated = await this.profileService.updateProfile(req.user.id, user);
 
     return new UserProfileResponse(userUpdated);
   }
