@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Put, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put, Req, UseGuards } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiOkResponse,
@@ -24,6 +24,13 @@ export class UserController {
     const user = await this.userService.getProfile(req.user.id);
 
     return new UserProfileResponse(user);
+  }
+
+  @Get(':id')
+  async getUser(@Param() params) {
+    console.log(params);
+
+    return 'cool';
   }
 
   @UseGuards(AuthGuard)
