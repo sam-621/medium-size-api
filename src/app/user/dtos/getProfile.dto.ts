@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 
 export class GetUserProfileDto {
   @ApiProperty({ type: String })
-  id: Types.ObjectId;
+  _id: Types.ObjectId;
 
   @ApiProperty()
   username: string;
