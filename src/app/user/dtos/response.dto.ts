@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { TUserDocument } from '../schema/user.schema';
 import { GetUserProfileDto } from './getProfile.dto';
 
 export class UserAuthResponse {
@@ -14,8 +15,18 @@ export class UserProfileResponse {
   @ApiProperty()
   data: GetUserProfileDto;
 
-  constructor(data: GetUserProfileDto) {
-    this.data = data;
+  constructor(data: TUserDocument) {
+    const _data: GetUserProfileDto = {
+      id: data._id,
+      username: data.username,
+      email: data.email,
+      bio: data.bio,
+      profilePic: data.profilePic,
+      followers: data.followers,
+      following: data.following,
+    };
+
+    this.data = _data;
   }
 }
 

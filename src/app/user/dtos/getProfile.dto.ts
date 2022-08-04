@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Types } from 'mongoose';
+import { IUser } from '../interfaces/user.interface';
 
-export class GetUserProfileDto {
+export class GetUserProfileDto implements Omit<IUser, 'password'> {
   @ApiProperty({ type: String })
-  _id: Types.ObjectId;
+  id: Types.ObjectId;
 
   @ApiProperty()
   username: string;
@@ -16,6 +17,12 @@ export class GetUserProfileDto {
 
   @ApiProperty()
   profilePic: string;
+
+  @ApiProperty()
+  followers: Types.ObjectId[];
+
+  @ApiProperty()
+  following: Types.ObjectId[];
 }
 
 export class GetProfileByIdParam {

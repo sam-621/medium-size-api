@@ -28,7 +28,7 @@ export class ActionsController {
   ): Promise<UserProfileResponse> {
     const userUpdated = await this.actionsServices.follow(
       req.user.id,
-      followUserDto.followerId as unknown as Types.ObjectId,
+      followUserDto.userToFollowId as unknown as Types.ObjectId,
     );
 
     return new UserProfileResponse(userUpdated);

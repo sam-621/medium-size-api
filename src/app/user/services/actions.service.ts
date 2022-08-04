@@ -7,9 +7,9 @@ import { TUserDocument } from '../schema/user.schema';
 export class ActionsService {
   constructor(private userRepository: UserRepository) {}
 
-  async follow(userId: Types.ObjectId, followerId: Types.ObjectId): Promise<TUserDocument> {
+  async follow(userId: Types.ObjectId, userToFollowId: Types.ObjectId): Promise<TUserDocument> {
     try {
-      const newUser = await this.userRepository.addFollower(userId, followerId);
+      const newUser = await this.userRepository.addFollower(userId, userToFollowId);
 
       return newUser;
     } catch (error) {

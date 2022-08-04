@@ -15,6 +15,8 @@ export class ProfileService {
         'email',
         'bio',
         'profilePic',
+        'followers',
+        'following',
       ]);
 
       return user;

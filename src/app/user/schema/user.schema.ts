@@ -1,15 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
 import { IUser } from '../interfaces/user.interface';
-import { Types } from 'mongoose';
+import { Types, Document } from 'mongoose';
 
 export type TUserDocument = User & Document;
 
 @Schema()
 export class User implements IUser {
-  @Prop({ type: mongoose.Schema.Types.ObjectId })
-  _id: Types.ObjectId;
-
   @Prop({ required: true })
   username: string;
 
@@ -33,3 +29,7 @@ export class User implements IUser {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+export type TUserDB = IUser & {
+  _id: Types.ObjectId;
+};
